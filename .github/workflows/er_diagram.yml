@@ -1,53 +1,48 @@
 name: College ER Diagram Autograding
 
 on:
-push:
-pull_request:
-workflow_dispatch:
+  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
-autograding:
-runs-on: ubuntu-latest
+  autograding:
+    runs-on: ubuntu-latest
 
-```
-steps:
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-  - name: Checkout Repository
-    uses: actions/checkout@v4
+      - name: Show Repository Structure
+        run: |
+          echo "======================================"
+          echo "REPOSITORY FILES"
+          echo "======================================"
+          find . -maxdepth 5 -type f | sort
+          echo "======================================"
 
-  - name: Show Repository Structure
-    run: |
-      echo "======================================"
-      echo "REPOSITORY FILES"
-      echo "======================================"
+      - name: Find and Run Test
+        run: |
+          echo "Searching for test.sh..."
 
-      find . -maxdepth 5 -type f | sort
+          TEST_FILE=$(find . -type f -name "test.sh" | head -n 1)
 
-      echo "======================================"
+          if [ -z "$TEST_FILE" ]; then
+            echo "ERROR: test.sh not found."
+            exit 1
+          fi
 
-  - name: Find and Run Test
-    run: |
-      echo "Searching for test.sh..."
+          echo "PASS: test.sh found at:"
+          echo "$TEST_FILE"
 
-      TEST_FILE=$(find . -type f -name "test.sh" | head -n 1)
+          chmod +x "$TEST_FILE"
 
-      if [ -z "$TEST_FILE" ]; then
-        echo "ERROR: test.sh not found."
-        exit 1
-      fi
+          TEST_DIR=$(dirname "$TEST_FILE")
 
-      echo "PASS: test.sh found at:"
-      echo "$TEST_FILE"
+          echo "Test directory:"
+          echo "$TEST_DIR"
 
-      chmod +x "$TEST_FILE"
+          cd "$TEST_DIR"
 
-      TEST_DIR=$(dirname "$TEST_FILE")
-
-      echo "Test directory:"
-      echo "$TEST_DIR"
-
-      cd "$TEST_DIR"
-
-      echo "Running autograding..."
-      ./test.sh
-```
+          echo "Running autograding..."
+          ./test.sh
