@@ -1,0 +1,31 @@
+COLLEGE MANAGEMENT SYSTEM – ER DIAGRAM
+
+Entities:
+
+1. Student
+2. Course
+3. Faculty
+4. Department
+
+Relationships:
+
+1. Department - Student:
+   Cardinality: __________________
+
+2. Faculty - Course:
+   Cardinality: __________________
+
+3. Student - Course:
+   Cardinality: __________________
+
+One-to-One Relationship:
+
+---
+
+One-to-Many Relationships:
+
+---
+
+Many-to-Many Relationship:
+
+---
