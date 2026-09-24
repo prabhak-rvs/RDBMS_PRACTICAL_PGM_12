@@ -1,0 +1,11 @@
+Department - Student: One-to-Many (1:M)
+
+Faculty - Course: One-to-Many (1:M)
+
+Student - Course: Many-to-Many (M:N)
+
+One-to-One: Not specified for the given entities and relationships
+
+One-to-Many: Department - Student; Faculty - Course
+
+Many-to-Many: Student - Course
